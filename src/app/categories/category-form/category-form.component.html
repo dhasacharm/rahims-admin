@@ -1,0 +1,11 @@
+<form name="CategoryForm" [formGroup]="categoryForm" fxLayout="column" fxFlex="100%" (ngSubmit)="handleSubmit()" [ngStyle.xs]="{'margin': '3%'}">
+  <mat-form-field>
+    <input matInput placeholder="Category Name" type="text" formControlName="name">
+    <mat-error>
+      Category Name Should Not Be Empty
+    </mat-error>
+  </mat-form-field>
+  <div>
+    <button type="submit" mat-raised-button color="primary" [disabled]="categoryForm.invalid">Submit</button>
+  </div>
+</form>

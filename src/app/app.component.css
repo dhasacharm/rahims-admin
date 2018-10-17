@@ -1,0 +1,22 @@
+.vert-sidenav-container {
+    position: relative;
+    top:64px;
+    height: 100%
+}
+
+#side-nav {
+    width: 200px;    
+	background: var(--vert-gradient-primary-fallback);
+    background: var(--vert-gradient-primary-reverse) !important;
+}
+
+.user-avatar {
+    max-width: 120px;
+    margin: 1em auto;
+    display: block;
+}
+
+.sidenav-active-nav-list-item {
+    background: rgba(0, 0, 0, .05);
+    color: white;
+}

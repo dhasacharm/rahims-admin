@@ -1,0 +1,110 @@
+<div fxLayout="row" fxLayoutAlign="center center" [ngStyle]="{'margin-top': '10%'}">
+  <section fxLayout="column" fxFlex="100%" fxFlex.gt-xs="50%" fxFlex.gt-sm="25%">
+    <h3 [ngStyle.lt-sm]="{'paddingLeft': '10px'}">Create New Product</h3>
+    <form name="CreateProductForm" [formGroup]="createProductForm" fxLayout="column" fxFlex="100%" [ngStyle.xs]="{'margin': '3%'}"
+      (ngSubmit)="handleSubmit()">
+      <!-- Product Name -->
+      <section>
+        <mat-form-field>
+          <input matInput placeholder="Name" formControlName="name" type="text" name="name" required>
+          <mat-error>
+            Enter Valid Name
+          </mat-error>
+        </mat-form-field>
+      </section>
+
+      <!-- Available Time -->
+      <section formArrayName="availableTimings">
+        <div>
+          <h3> Available Timings
+            <!-- Add Time Group Button -->
+            <button mat-icon-button type="button" (click)="addTimeGroup()">
+              <mat-icon color="warn" aria-label="Available timings">add</mat-icon>
+            </button></h3>
+        </div>
+        <div fxLayout="row" *ngFor="let time of availableTimings.controls; let i = index;" [formGroupName]="i">
+          <mat-form-field>
+            <input type="time" matInput placeholder="From" formControlName="from">
+          </mat-form-field>
+          <mat-form-field>
+            <input type="time" matInput placeholder="To" formControlName="to">
+          </mat-form-field>
+          <!-- Remove Item -->
+          <div>
+            <button mat-icon-button type="button" (click)="removeTimeGroup(i)">
+              <mat-icon aria-label="Remove timings">cancel</mat-icon>
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Image -->
+      <section>
+        <input placeholder="Picture" formControlName="image" type="file" (change)="readUrl($event)" name="image" required>
+        <mat-card>
+            <img mat-card-image [src]="url" alt="Photo of a Shiba Inu" class="example-card-image">
+        </mat-card>
+      </section>
+      <!-- Categories -->
+      <section>
+        <mat-form-field>
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let category of selectedCategories; let i = index;" [removable]="removable" (removed)="removeChip(category, i)">
+              {{category.name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Select category" #categoryInput [formControl]="categoryCtrl" [matAutocomplete]="auto"
+              [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur">
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let category of filteredCategories | async" [value]="category._id">
+              {{category.name}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error>
+            Select Atleast one Category
+          </mat-error>
+        </mat-form-field>
+      </section>
+
+      <!-- Price And Quantity -->
+      <section fxLayout="column" formArrayName="priceGroups">
+        <div>
+          <h3>Price Groups
+            <button mat-icon-button type="button" (click)="addPriceGroup()">
+              <mat-icon color="warn" aria-label="Add Price Group">add</mat-icon>
+            </button> </h3>
+        </div>
+        <div fxLayout="row" *ngFor="let ctrl of priceGroups.controls; let i = index;" [formGroupName]="i">
+          <mat-form-field>
+            <input matInput placeholder="Enter Quantity" formControlName="quantity" type="text" required>
+            <mat-error>
+              Enter Quantity Value
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Enter Price" formControlName="price" type="text" required>
+            <mat-error>
+              Enter Price Value
+            </mat-error>
+          </mat-form-field>
+          <div>
+            <button mat-icon-button type="button" (click)="removePriceGroup(i)">
+              <mat-icon aria-label="Remove Price Group">cancel</mat-icon>
+            </button>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Veg / Non Veg -->
+      <div style="padding: 1em 0;">
+        <mat-slide-toggle formControlName="isVeg">Vegiterian</mat-slide-toggle>
+      </div>
+      <div>
+        <button type="submit" mat-raised-button color="primary" [disabled]="createProductForm.invalid">Login</button>
+      </div>
+    </form>
+  </section>
+</div>

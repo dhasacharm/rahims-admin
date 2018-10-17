@@ -1,0 +1,9 @@
+<mat-toolbar color="primary" class="vert-mat-toolbar mat-elevation-z4">
+  <button fxHide.gt-md="true" mat-icon-button (click)="toggleSideNav()"><mat-icon>menu</mat-icon></button>
+  <span>Rahhams Admin</span>
+  <!-- This fills the remaining space of the current row -->
+  <span class="fill-remaining-space"></span>
+  <span fxHide.lt-sm="true">
+    <a routerLink="/account/login">Login</a>
+  </span>
+</mat-toolbar>

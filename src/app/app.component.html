@@ -1,0 +1,36 @@
+<app-navbar-top [snav]="snav"></app-navbar-top>
+<mat-sidenav-container class="vert-sidenav-container" fxLayout="column">
+  <mat-sidenav #snav mode="side" id="side-nav" opened="true">
+    <div>
+      <img class="user-avatar" src="/assets/user-avatar.svg">
+    </div>
+    <mat-nav-list>
+      <ng-container *ngFor="let navItem of sideNavMenuItems">
+        <a *ngIf="navItem.path" mat-list-item [routerLink]="[navItem.path]" routerLinkActive="sidenav-active-nav-list-item">
+          <mat-icon>{{navItem.icon}}</mat-icon>{{navItem.text}}
+        </a>
+       
+       
+        <a *ngIf="!navItem.path" mat-list-item routerLinkActive="sidenav-active-nav-list-item">
+          <mat-icon>{{navItem.icon}}</mat-icon>{{navItem.text}}
+        </a>
+        <!-- <button mat-list-item *ngIf="!navItem.path" routerLinkActive="sidenav-active-nav-list-item">
+          <mat-icon>{{navItem.icon}}</mat-icon>{{navItem.text}}
+        </button> -->
+      </ng-container>
+     
+      
+      <a mat-list-item routerLink="categories">
+       categories
+      </a>
+      <a mat-list-item routerLink="categories/new">
+       categories/new
+       </a>
+      
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<app-footer></app-footer>

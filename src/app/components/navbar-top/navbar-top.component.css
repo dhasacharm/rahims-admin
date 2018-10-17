@@ -1,0 +1,11 @@
+.fill-remaining-space {
+    flex: 1 1 auto;
+}
+
+.vert-mat-toolbar {
+    background: var(--vert-gradient-primary-fallback);
+    background: var(--vert-gradient-primary) !important;
+    position: absolute;
+    width:100%;
+    z-index: 100;
+}
